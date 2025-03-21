@@ -11,7 +11,7 @@ These have  matching columns:
 */
 
 -- Show 10 sample rows of the airports table
-SELECT 	TOP 10 * FROM 	countries c;
+SELECT 	TOP 10 * FROM 	countries c
 
 -- Show 10 sample rows of the airports table
 SELECT 	TOP 10 * FROM 	airports a;
