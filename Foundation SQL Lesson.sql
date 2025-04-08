@@ -28,7 +28,7 @@ FROM
 /*
 Using a table alias (ps in the example below) is good practice and helps in a few ways 
 1. the autocomplete will list the column names
-2. when there are several tables, it is easier to identfy which column from which table
+2. when there are several tables, it is easier to identify which column from which table
 */
 SELECT
 	p.PatientId
