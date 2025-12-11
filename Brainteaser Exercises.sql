@@ -4,14 +4,14 @@ A set of brainteaser exercise to consolidate SQL lessons
 */
 
 /*
-This exercise analyses the data quality of BadMessage table, that  contains list of messages. 
+This exercise analyses the data quality of BadMessage table,that  contains list of messages. 
 */
 SELECT
 	bm.MessageId
-	, bm.ReceivedDate
-	, bm.Region
-	, bm.Category
-	, bm.Movement
+	,bm.ReceivedDate
+	,bm.Region
+	,bm.Category
+	,bm.Movement
 FROM
 	BadMessage bm
 ORDER BY
@@ -28,7 +28,7 @@ There are three tasks:
 */
 
 /*
-Task 1:  Let's check for duplicates in the MessageId column. If there are duplicates, 
+Task 1:  Let's check for duplicates in the MessageId column. If there are duplicates,
 (1) list the duplicate MessageId values and the number of times they are duplicated
 (2) list (all columns of) the duplicated rows
 

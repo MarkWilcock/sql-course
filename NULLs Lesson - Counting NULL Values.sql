@@ -22,9 +22,9 @@ WHERE
 
 SELECT
 	TOP 10 pp.TransactionID
-	, pp.PostCode
-	, pp.Locality
-	, CASE
+	,pp.PostCode
+	,pp.Locality
+	,CASE
 		WHEN pp.Locality IS NULL THEN 0
 		ELSE 1
 	END AS LocalityNumber
@@ -33,8 +33,8 @@ FROM
 
 SELECT
 	pp.PropertyType
-	, SUM(CASE WHEN pp.Locality IS NULL THEN 0 ELSE 1 END) AS LocalityCount
-	, Count(*) AS NumberofSales
+	,SUM(CASE WHEN pp.Locality IS NULL THEN 0 ELSE 1 END) AS LocalityCount
+	,Count(*) AS NumberofSales
 FROM
 	PricePaidSW12 pp
 GROUP BY
@@ -42,8 +42,8 @@ GROUP BY
 
 SELECT
 	YEAR(pp.TransactionDate) AS YEAR
-	, SUM(CASE WHEN pp.Locality IS NULL THEN 0 ELSE 1 END) AS LocalityCount
-	, Count(*) AS NumberofSales
+	,SUM(CASE WHEN pp.Locality IS NULL THEN 0 ELSE 1 END) AS LocalityCount
+	,Count(*) AS NumberofSales
 FROM
 	PricePaidSW12 pp
 GROUP BY

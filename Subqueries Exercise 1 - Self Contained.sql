@@ -6,17 +6,17 @@ This exercise will use two related tables
 * PropertyTypeLookup - a lookup table on the PropertyType column of PricePaidSW12.  This contains a one letter code e.g. 'D'.  
   The PropertyTypeLookup has a column PropertyTypeCode with matching values and a column PropertyTypeName with the description e.g. 'Detached'
 
-In this example we will focus sales in  a particular street, Ranmere Street
+In this example we will focus sales in  a particular street,Ranmere Street
 */
 
 -- List properties sold in Ranmere Street
 SELECT
 	pp.TransactionID
-	, pp.TransactionDate 
-	, pp.Price 
-	, pp.PropertyType
-	, pp.PAON
-	, pp.Street 
+	,pp.TransactionDate 
+	,pp.Price 
+	,pp.PropertyType
+	,pp.PAON
+	,pp.Street 
 FROM
 	PricePaidSW12 pp
 WHERE
@@ -43,12 +43,12 @@ FROM
 -- Use a simple subquery in the WHERE clause and in the column list
 SELECT
 	pp.TransactionID
-	, pp.TransactionDate 
-	, pp.Price 
-	, pp.PropertyType
-	, pp.PAON
-	, pp.Street 
-	, 'write the subquery here' AS AveragePriceInRanmereStreet
+	,pp.TransactionDate 
+	,pp.Price 
+	,pp.PropertyType
+	,pp.PAON
+	,pp.Street 
+	,'write the subquery here' AS AveragePriceInRanmereStreet
 FROM
 	PricePaidSW12 pp
 WHERE

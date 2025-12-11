@@ -23,9 +23,9 @@ WHERE
 -- Use a simple subquery in the WHERE clause
 SELECT
 	pp.TransactionDate
-	, pp.PAON
-	, pp.SAON
-	, pp.Price
+	,pp.PAON
+	,pp.SAON
+	,pp.Price
 FROM
 	PricePaidSW12 pp
 WHERE
@@ -40,9 +40,9 @@ WITH cambraySales
 AS (
 SELECT
 	pp.TransactionDate
-	, pp.PAON
-	, pp.SAON
-	, pp.Price
+	,pp.PAON
+	,pp.SAON
+	,pp.Price
 FROM
 	PricePaidSW12 pp
 WHERE
@@ -60,17 +60,17 @@ WITH cambraySales
 AS (
 SELECT
 	pp.TransactionDate
-	, pp.PAON
-	, pp.SAON
-	, pp.Price
+	,pp.PAON
+	,pp.SAON
+	,pp.Price
 FROM
 	PricePaidSW12 pp
 WHERE
 	pp.Street = 'CAMBRAY ROAD')
 SELECT
 	cambraySales.Price
-	, (SELECT AVG(cambraySales.Price) FROM cambraySales ) AS AveragePriceOnCambrayRoad
-	, cambraySales.Price - (SELECT AVG(cambraySales.Price) FROM cambraySales) AS AmountOverAveragePriceOnCambrayRoad
+	,(SELECT AVG(cambraySales.Price) FROM cambraySales ) AS AveragePriceOnCambrayRoad
+	,cambraySales.Price - (SELECT AVG(cambraySales.Price) FROM cambraySales) AS AmountOverAveragePriceOnCambrayRoad
 FROM
 	cambraySales
 WHERE
@@ -79,12 +79,12 @@ WHERE
 -- Do this for all of SW12 rather than a single street
 SELECT
 	pp.TransactionDate
-	, pp.PAON
-	, pp.SAON
-	, pp.Price
-	, (
+	,pp.PAON
+	,pp.SAON
+	,pp.Price
+	,(
 	SELECT AVG(CAST(p1.Price AS BIGINT)) FROM PricePaidSW12 p1 ) AS AveragePriceInSW12
-	, pp.Price - (SELECT AVG(CAST(p1.Price AS BIGINT)) FROM PricePaidSW12 p1 ) AS PriceOverAverageInSW12
+	,pp.Price - (SELECT AVG(CAST(p1.Price AS BIGINT)) FROM PricePaidSW12 p1 ) AS PriceOverAverageInSW12
 FROM
 	PricePaidSW12 pp
 WHERE
@@ -98,16 +98,16 @@ ORDER BY
 -- Note this is a correlated subqueries both in the column list and in the WHERE clause
 SELECT
 	pp.TransactionDate
-	, pp.PAON
-	, pp.SAON
-	, pp.Price
-	, pp.Street
-	, (
+	,pp.PAON
+	,pp.SAON
+	,pp.Price
+	,pp.Street
+	,(
            SELECT AVG(cast(p1.Price AS BIGINT))
            FROM PricePaidSW12 p1
            WHERE p1.street = pp.Street
        ) AS AveragePriceOnStreet
-       , Price -
+       ,Price -
        (
            SELECT AVG(cast(p1.Price AS BIGINT))
            FROM PricePaidSW12 p1
@@ -128,11 +128,11 @@ WITH streetCTE
 AS (
 SELECT
 	pp.TransactionDate
-	, pp.PAON
-	, pp.SAON
-	, pp.Price
-	, pp.Street
-	, (SELECT AVG(cast(p1.Price AS BIGINT))
+	,pp.PAON
+	,pp.SAON
+	,pp.Price
+	,pp.Street
+	,(SELECT AVG(cast(p1.Price AS BIGINT))
                FROM PricePaidSW12 p1
                WHERE p1.street = pp.Street
            ) AS AveragePriceInStreet
@@ -147,9 +147,9 @@ ORDER BY streetCTE.Price;
 /*
  * Oracle version - does not need to cast to bigint
 SELECT 
-	pp.TransactionDate, 
-	pp.PAON, 
-	pp.SAON, 
+	pp.TransactionDate,
+	pp.PAON,
+	pp.SAON,
 	pp.Price,
 	(SELECT AVG(p1.Price) FROM PricePaidSW12 p1) AS AveragePriceInSW12,
 	pp.Price - (SELECT AVG(p1.Price) FROM PricePaidSW12 p1) as PriceOverAverageInSW12

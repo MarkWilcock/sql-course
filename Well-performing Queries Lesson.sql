@@ -8,7 +8,7 @@ Note: Best to use SSMS so can see  query plans (DBeaver community edition does n
 This lesson uses several tables in the LearnSQL database
 
 The PricePaidSW12 table has 
-* a PK on TransactionID, 
+* a PK on TransactionID,
 * FKs on PostCode and PropertyType 
 * additional indexes on Postcode and TransactionDate
 
@@ -30,12 +30,12 @@ SET STATISTICS TIME ON;
 
 SELECT 
 	pps.TransactionID
-	, pps.TransactionDate
-	, pps.Price
-	, pps.PostCode
-	, pps.PAON
-	, pps.SAON
-	, pps.Street
+	,pps.TransactionDate
+	,pps.Price
+	,pps.PostCode
+	,pps.PAON
+	,pps.SAON
+	,pps.Street
 FROM
 	PricePaidSW12 pps
 	--WHERE pps.PAON = '52';
@@ -45,7 +45,7 @@ WHERE
 SET STATISTICS IO OFF;
 SET STATISTICS TIME OFF;
 /*
-Avoid SELECT *, list the columns needed
+Avoid SELECT *,list the columns needed
 */
 DBCC DROPCLEANBUFFERS;
 
@@ -72,12 +72,12 @@ DROP TABLE IF EXISTS #tempPricePaid;
 
 SELECT 
 	pps.TransactionID
-	, pps.TransactionDate
-	, pps.Price
-	, pps.PostCode
-	, pps.PAON
-	, pps.SAON
-	, pps.Street 
+	,pps.TransactionDate
+	,pps.Price
+	,pps.PostCode
+	,pps.PAON
+	,pps.SAON
+	,pps.Street 
 INTO
 	#tempPricePaid
 FROM
@@ -87,17 +87,17 @@ WHERE
 
 -- do some futher processing on the filtered temp table
 SELECT 
-	tp.TransactionID, 
+	tp.TransactionID,
 	tp.TransactionDate,
-	tp.Price,  
-	CONCAT(tp.PAON, tp.SAON, tp.Street, tp.PostCode) AS Address
+	tp.Price, 
+	CONCAT(tp.PAON,tp.SAON,tp.Street,tp.PostCode) AS Address
 FROM  #tempPricePaid tp
 ORDER BY tp.TransactionDate;
 
 SET STATISTICS IO OFF;
 SET STATISTICS TIME OFF;
 /*
-In a subquery, use EXISTS or a JOIN codition rather than IN
+In a subquery,use EXISTS or a JOIN codition rather than IN
 
 In these  queries we want to find sales of properties in postcodes in the  most deprived part  of the area
 according to the imd column of the PostCodeSW12 table
@@ -112,12 +112,12 @@ SET STATISTICS TIME ON;
 
 SELECT 
 	pps.TransactionID
-	, pps.TransactionDate
-	, pps.Price
-	, pps.PostCode
-	, pps.PAON
-	, pps.SAON
-	, pps.Street
+	,pps.TransactionDate
+	,pps.Price
+	,pps.PostCode
+	,pps.PAON
+	,pps.SAON
+	,pps.Street
 FROM
 	PricePaidSW12 pps
 WHERE pps.Postcode IN (SELECT DISTINCT pcds FROM PostcodeSW12 where imd <=10000)
@@ -133,12 +133,12 @@ SET STATISTICS TIME ON;
 
 SELECT 
 	pps.TransactionID
-	, pps.TransactionDate
-	, pps.Price
-	, pps.PostCode
-	, pps.PAON
-	, pps.SAON
-	, pps.Street
+	,pps.TransactionDate
+	,pps.Price
+	,pps.PostCode
+	,pps.PAON
+	,pps.SAON
+	,pps.Street
 FROM
 	PricePaidSW12 pps
 WHERE EXISTS (SELECT 1 FROM PostcodeSW12 pc where pc.imd <=10000 and pc.pcds = pps.PostCode)
@@ -154,12 +154,12 @@ SET STATISTICS TIME ON;
 
 SELECT 
 	pps.TransactionID
-	, pps.TransactionDate
-	, pps.Price
-	, pps.PostCode
-	, pps.PAON
-	, pps.SAON
-	, pps.Street
+	,pps.TransactionDate
+	,pps.Price
+	,pps.PostCode
+	,pps.PAON
+	,pps.SAON
+	,pps.Street
 FROM PricePaidSW12 pps
 INNER JOIN PostcodeSW12 pc ON pc.pcds = pps.PostCode
 WHERE pc.imd <= 10000
@@ -180,12 +180,12 @@ SET STATISTICS TIME ON;
 
 SELECT 
 	pps.TransactionID
-	, pps.TransactionDate
-	, pps.Price
-	, pps.PostCode
-	, pps.PAON
-	, pps.SAON
-	, pps.Street
+	,pps.TransactionDate
+	,pps.Price
+	,pps.PostCode
+	,pps.PAON
+	,pps.SAON
+	,pps.Street
 FROM PricePaidSW12 pps
 WHERE YEAR(pps.TransactionDate) = 1995
 
@@ -200,12 +200,12 @@ SET STATISTICS TIME ON;
 
 SELECT 
 	pps.TransactionID
-	, pps.TransactionDate
-	, pps.Price
-	, pps.PostCode
-	, pps.PAON
-	, pps.SAON
-	, pps.Street
+	,pps.TransactionDate
+	,pps.Price
+	,pps.PostCode
+	,pps.PAON
+	,pps.SAON
+	,pps.Street
 FROM PricePaidSW12 pps
 WHERE pps.TransactionDate BETWEEN '1995-01-01' AND '1995-12-31'
 

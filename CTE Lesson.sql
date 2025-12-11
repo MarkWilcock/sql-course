@@ -1,6 +1,6 @@
 /*
 SQL Course - CTE Lesson
-CTE - Common Table Expression, uses the WITH clause
+CTE - Common Table Expression,uses the WITH clause
 */
 
 /*
@@ -11,18 +11,18 @@ Note that this approach may becomes unreadable if there are several levels of ne
 
 SELECT
 	p.AdmittedDate
-	, p.AdvancedTariff
+	,p.AdvancedTariff
 FROM
 	(
 	SELECT
 		ps.AdmittedDate
-		, ps.Hospital
-		, SUM(ps.Tariff) + 1 AS AdvancedTariff
+		,ps.Hospital
+		,SUM(ps.Tariff) + 1 AS AdvancedTariff
 	FROM
 		PatientStay ps
 	GROUP BY
 		ps.AdmittedDate
-		, ps.Hospital) p
+		,ps.Hospital) p
 WHERE
 	p.Hospital = 'PRUH'
 	AND p.AdvancedTariff > 5;
@@ -33,20 +33,20 @@ This yields exactly the same result but is more readable.
 NOTE: SQL needs to know that WITH is the start of a statement - the previous statement must have a semi-colon at end
 */
 
-WITH p (AdmittedDate, Hospital, AdvancedTariff)
+WITH p (AdmittedDate,Hospital,AdvancedTariff)
 AS (
 SELECT
 	ps.AdmittedDate
-	, ps.Hospital
-	, SUM(ps.Tariff) + 1
+	,ps.Hospital
+	,SUM(ps.Tariff) + 1
 FROM
 	PatientStay ps
 GROUP BY
 	ps.AdmittedDate
-	, ps.Hospital)
+	,ps.Hospital)
 SELECT
 	p.AdmittedDate
-	, p.AdvancedTariff
+	,p.AdvancedTariff
 FROM
 	p
 WHERE
@@ -61,16 +61,16 @@ WITH p
 AS (
 SELECT
 	ps.AdmittedDate
-	, ps.Hospital
-	, SUM(ps.Tariff) + 1 AS AdvancedTariff
+	,ps.Hospital
+	,SUM(ps.Tariff) + 1 AS AdvancedTariff
 FROM
 	PatientStay ps
 GROUP BY
 	ps.AdmittedDate
-	, ps.Hospital)
+	,ps.Hospital)
 SELECT
 	p.AdmittedDate
-	, p.AdvancedTariff
+	,p.AdvancedTariff
 FROM
 	p
 WHERE

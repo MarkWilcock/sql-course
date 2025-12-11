@@ -22,8 +22,8 @@ SELECT CAST(GETDATE() AS DATE) AS TodaysDate;
 -- DATENAME() returns part of a date as a string
 -- See https://www.w3schools.com/sql/func_sqlserver_datename.asp for interval argument examples
 SELECT m.MessageId
-       , m.ReceivedDate
-       , DATENAME(WEEKDAY, m.ReceivedDate) AS ReceivedWeekDay
+       ,m.ReceivedDate
+       ,DATENAME(WEEKDAY,m.ReceivedDate) AS ReceivedWeekDay
 FROM Message m;
 
 -- DATEPART() returns part of a date as a number
@@ -111,15 +111,15 @@ CREATE TABLE #Person
 INSERT INTO #Person
 VALUES
 	('Mark', 100)
-	, ('Mary', 200)
-	, ('David', NULL); -- There is not an amount for David
+	,('Mary', 200)
+	,('David', NULL); -- There is not an amount for David
 
 SELECT * FROM #Person;
 
 SELECT p.Name
-       , p.Weight
-       , ISNULL(p.Weight, 101) AS FullAmount
-       , COALESCE(p.Weight, 102) AS NewAmount
+       ,p.Weight
+       ,ISNULL(p.Weight, 101) AS FullAmount
+       ,COALESCE(p.Weight, 102) AS NewAmount
 FROM #Person p;
 
 

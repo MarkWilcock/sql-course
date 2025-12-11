@@ -4,14 +4,14 @@
 
 /* 
  * Create a new column HospitalLocation
- * Kings College is Urban, other hospitals are Rural 
+ * Kings College is Urban,other hospitals are Rural 
  * Use the simple CASE form
 */
 
 SELECT
 	ps.PatientId
-	, ps.Hospital
-	, '???' AS HospitalLocation
+	,ps.Hospital
+	,'???' AS HospitalLocation
 FROM
 	dbo.PatientStay ps
 ORDER BY
@@ -19,14 +19,14 @@ ORDER BY
 
 /* 
  * Create a new column WardType
- * Any ward that contains 'Surgery' is 'Surgical', otherwise 'Non Surgical'
+ * Any ward that contains 'Surgery' is 'Surgical',otherwise 'Non Surgical'
  * Use the searched CASE form
 */
 
 SELECT
 	ps.PatientId
-	, ps.Hospital
-	, '???' AS WardType
+	,ps.Hospital
+	,'???' AS WardType
 FROM
 	dbo.PatientStay ps
 ORDER BY
@@ -43,12 +43,12 @@ ORDER BY
         
 SELECT
 	ps.PatientId
-	, ps.AdmittedDate
-	, ps.Tariff
-	, '???' AS PatientTariffGroup
+	,ps.AdmittedDate
+	,ps.Tariff
+	,'???' AS PatientTariffGroup
 FROM
 	dbo.PatientStay ps
 ORDER BY
 	PatientTariffGroup
-	, ps.Tariff
-	, ps.PatientId;
+	,ps.Tariff
+	,ps.PatientId;

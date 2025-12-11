@@ -64,32 +64,32 @@ VALUES
 -- This shows how to calculate the NumberOfDays in each period, and the DailyAmount
 select 
 	 i.Id
-	, i.BuildingId
-	, i.StartDate
-	, i.EndDate
-	, i.Amount
-	, DATEDIFF(DAY, i.StartDate, i.EndDate) + 1 AS NumberOfDays
-	, i.Amount / (DATEDIFF(DAY, i.StartDate, i.EndDate) + 1) AS DailyAmount
+	,i.BuildingId
+	,i.StartDate
+	,i.EndDate
+	,i.Amount
+	,DATEDIFF(DAY,i.StartDate,i.EndDate) + 1 AS NumberOfDays
+	,i.Amount / (DATEDIFF(DAY,i.StartDate,i.EndDate) + 1) AS DailyAmount
 from Inquiry i;
 
 select * from Building;
 
 select * from Inquiry
 
--- This is a typical Dates table, found in 
+-- This is a typical Dates table,found in 
 select * from vwDimDates d;
 
--- The putrpose of this CTE is to calculate the DailyAmount We will use a similar CTE in the final statement
+-- The purpose of this CTE is to calculate the DailyAmount We will use a similar CTE in the final statement
 with cte AS
 (
 select 
 	 i.Id
-	, i.BuildingId
-	, i.StartDate
-	, i.EndDate
-	--, i.Amount
-	--, DATEDIFF(DAY, i.StartDate, i.EndDate) + 1 AS NumberOfDays
-	, i.Amount / (DATEDIFF(DAY, i.StartDate, i.EndDate) + 1) AS DailyAmount
+	,i.BuildingId
+	,i.StartDate
+	,i.EndDate
+	--,i.Amount
+	--,DATEDIFF(DAY,i.StartDate,i.EndDate) + 1 AS NumberOfDays
+	,i.Amount / (DATEDIFF(DAY,i.StartDate,i.EndDate) + 1) AS DailyAmount
 from Inquiry i
 )
 select * from cte;
@@ -97,10 +97,10 @@ select * from cte;
 
 select 
 	 i.Id
-	, i.BuildingId
-	, i.StartDate
-	, i.EndDate
-	, i.Amount
+	,i.BuildingId
+	,i.StartDate
+	,i.EndDate
+	,i.Amount
 from Inquiry i
 CROSS JOIN vwDimDates d
 WHERE d.[Date] >= i.StartDate 
@@ -113,20 +113,20 @@ with cte AS
 (
 select 
 	 i.Id
-	, i.BuildingId
-	, i.StartDate
-	, i.EndDate
-	, i.Amount / (DATEDIFF(DAY, i.StartDate, i.EndDate) + 1) AS DailyAmount
+	,i.BuildingId
+	,i.StartDate
+	,i.EndDate
+	,i.Amount / (DATEDIFF(DAY,i.StartDate,i.EndDate) + 1) AS DailyAmount
 from Inquiry i
 )
 select 
 	d.[Date]
-	, cte.Id
-	, cte.BuildingId
-	, cte.StartDate
-	, cte.EndDate
-	, cte.DailyAmount
-	, b.SQM
+	,cte.Id
+	,cte.BuildingId
+	,cte.StartDate
+	,cte.EndDate
+	,cte.DailyAmount
+	,b.SQM
 from cte JOIN Building b ON cte.BuildingId = b.BuildingId
 CROSS JOIN vwDimDates d
 WHERE d.[Date] >= cte.StartDate 

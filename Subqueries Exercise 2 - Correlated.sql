@@ -1,9 +1,9 @@
 /*
 Subqueries Exercise 2 - Correlated
 
-A correlated subquery in SQL is a subquery that references columns from the outer query, 
+A correlated subquery in SQL is a subquery that references columns from the outer query,
 It is executed once for each row processed by the outer query. 
-The subquery is re-evaluated for every row, making it useful for row-by-row comparisons 
+The subquery is re-evaluated for every row,making it useful for row-by-row comparisons 
 but potentially less efficient than non-correlated subqueries.
 */
 
@@ -14,9 +14,9 @@ Note: You can list patients in all wards apart from surgical wards by using NOT 
 
 SELECT
 	ps.PatientId
-	, ps.Hospital
-	, ps.Ward
-	, ps.Tariff
+	,ps.Hospital
+	,ps.Ward
+	,ps.Tariff
 FROM
 	PatientStay ps
 WHERE
@@ -32,17 +32,17 @@ This next tasks use two related tables
 
 The PropertyTypeLookup has a column PropertyTypeCode with matching values and a column PropertyTypeName with the description e.g. 'Detached'
 
-The queries focus sales on a particular street, Ranmere Street
+The queries focus sales on a particular street,Ranmere Street
 */
 
 -- List properties sold in Ranmere Street
 SELECT
 	pp.TransactionID
-	, pp.TransactionDate 
-	, pp.Price 
-	, pp.PropertyType
-	, pp.PAON
-	, pp.Street 
+	,pp.TransactionDate 
+	,pp.Price 
+	,pp.PropertyType
+	,pp.PAON
+	,pp.Street 
 FROM
 	PricePaidSW12 pp
 WHERE
@@ -69,13 +69,13 @@ FROM
 -- Use correlated subqueries both in the column list and in the WHERE clause
 SELECT
 	pp.TransactionDate
-	, pp.PAON
-	, pp.SAON
-	, pp.Price
-	, pp.Street
-	, 'write the subquery here' AS AveragePriceOnStreet
+	,pp.PAON
+	,pp.SAON
+	,pp.Price
+	,pp.Street
+	,'write the subquery here' AS AveragePriceOnStreet
 FROM PricePaidSW12 pp
 -- 'write the subquery here'
-ORDER BY pp.Street, pp.Price;
+ORDER BY pp.Street,pp.Price;
 
 

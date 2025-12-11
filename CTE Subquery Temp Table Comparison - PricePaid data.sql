@@ -1,7 +1,7 @@
 /*
 CTE Subquery TempTable Comparison 
 
-Calculate the total price of all properties sold in each financial year, which starts on 1st April.
+Calculate the total price of all properties sold in each financial year,which starts on 1st April.
 We implement this in three ways using 
 - a common table expression (CTE) and the WITH statement
 - a simple (self-contained) subquery
@@ -12,40 +12,40 @@ We implement this in three ways using
 SELECT
 	TOP 100
        pp.TransactionID
-	, pp.TransactionDate
-	, pp.Price
-	, DATEPART(YEAR, pp.TransactionDate) AS CalendarYear
-	, CASE
-		WHEN DATEPART(MONTH, PP.TransactionDate) >= 4 THEN
-               CONCAT('FY ', DATEPART(YEAR, pp.TransactionDate), '-', DATEPART(YEAR, pp.TransactionDate) + 1)
+	,pp.TransactionDate
+	,pp.Price
+	,DATEPART(YEAR,pp.TransactionDate) AS CalendarYear
+	,CASE
+		WHEN DATEPART(MONTH,PP.TransactionDate) >= 4 THEN
+               CONCAT('FY ',DATEPART(YEAR,pp.TransactionDate),'-',DATEPART(YEAR,pp.TransactionDate) + 1)
 		ELSE
-               CONCAT('FY ', DATEPART(YEAR, pp.TransactionDate) - 1, '-', DATEPART(YEAR, pp.TransactionDate))
+               CONCAT('FY ',DATEPART(YEAR,pp.TransactionDate) - 1,'-',DATEPART(YEAR,pp.TransactionDate))
 	END FinancialYear
 FROM
 	PricePaidSW12 pp;
 
 
 /*
-Option 1: Use a common table expresion CTE and the WITH statement
+Option 1: Use a common table expression CTE and the WITH statement
 */
 WITH sale
 AS (
 SELECT
 	pp.TransactionID
-	, pp.TransactionDate
-	, pp.Price
-	, DATEPART(YEAR, pp.TransactionDate) AS CalendarYear
-	, CASE
-		WHEN DATEPART(MONTH, PP.TransactionDate) >= 4 THEN
-                   CONCAT('FY ', DATEPART(YEAR, pp.TransactionDate), '-', DATEPART(YEAR, pp.TransactionDate) + 1)
+	,pp.TransactionDate
+	,pp.Price
+	,DATEPART(YEAR,pp.TransactionDate) AS CalendarYear
+	,CASE
+		WHEN DATEPART(MONTH,PP.TransactionDate) >= 4 THEN
+                   CONCAT('FY ',DATEPART(YEAR,pp.TransactionDate),'-',DATEPART(YEAR,pp.TransactionDate) + 1)
 		ELSE
-                   CONCAT('FY ', DATEPART(YEAR, pp.TransactionDate) - 1, '-', DATEPART(YEAR, pp.TransactionDate))
+                   CONCAT('FY ',DATEPART(YEAR,pp.TransactionDate) - 1,'-',DATEPART(YEAR,pp.TransactionDate))
 	END FinancialYear
 FROM
 	PricePaidSW12 pp)
 SELECT
 	sale.FinancialYear
-	, SUM(sale.Price) / 1000000.0 AS TotalPriceInMillions
+	,SUM(sale.Price) / 1000000.0 AS TotalPriceInMillions
 FROM
 	sale
 GROUP BY
@@ -65,12 +65,12 @@ FROM
     SELECT pp.TransactionID,
            pp.TransactionDate,
            pp.Price,
-           DATEPART(YEAR, pp.TransactionDate) AS CalendarYear,
+           DATEPART(YEAR,pp.TransactionDate) AS CalendarYear,
            CASE
-               WHEN DATEPART(MONTH, PP.TransactionDate) >= 4 THEN
-                   CONCAT('FY ', DATEPART(YEAR, pp.TransactionDate), '-', DATEPART(YEAR, pp.TransactionDate) + 1)
+               WHEN DATEPART(MONTH,PP.TransactionDate) >= 4 THEN
+                   CONCAT('FY ',DATEPART(YEAR,pp.TransactionDate),'-',DATEPART(YEAR,pp.TransactionDate) + 1)
                ELSE
-                   CONCAT('FY ', DATEPART(YEAR, pp.TransactionDate) - 1, '-', DATEPART(YEAR, pp.TransactionDate))
+                   CONCAT('FY ',DATEPART(YEAR,pp.TransactionDate) - 1,'-',DATEPART(YEAR,pp.TransactionDate))
            END FinancialYear
     FROM PricePaidSW12 pp
 ) sale
@@ -87,14 +87,14 @@ DROP TABLE IF EXISTS #sale;
 
 SELECT
 	pp.TransactionID
-	, pp.TransactionDate
-	, pp.Price
-	, DATEPART(YEAR, pp.TransactionDate) AS CalendarYear
-	, CASE
-		WHEN DATEPART(MONTH, PP.TransactionDate) >= 4 THEN
-               CONCAT('FY ', DATEPART(YEAR, pp.TransactionDate), '-', DATEPART(YEAR, pp.TransactionDate) + 1)
+	,pp.TransactionDate
+	,pp.Price
+	,DATEPART(YEAR,pp.TransactionDate) AS CalendarYear
+	,CASE
+		WHEN DATEPART(MONTH,PP.TransactionDate) >= 4 THEN
+               CONCAT('FY ',DATEPART(YEAR,pp.TransactionDate),'-',DATEPART(YEAR,pp.TransactionDate) + 1)
 		ELSE
-               CONCAT('FY ', DATEPART(YEAR, pp.TransactionDate) - 1, '-', DATEPART(YEAR, pp.TransactionDate))
+               CONCAT('FY ',DATEPART(YEAR,pp.TransactionDate) - 1,'-',DATEPART(YEAR,pp.TransactionDate))
 	END FinancialYear
 INTO
 	#sale
@@ -107,7 +107,7 @@ FROM #sale;
 
 SELECT
 	#sale.FinancialYear
-	, SUM(#sale.Price) / 1000000.0 AS TotalPriceInMillions
+	,SUM(#sale.Price) / 1000000.0 AS TotalPriceInMillions
 FROM
 	#sale
 GROUP BY

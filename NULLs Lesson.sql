@@ -58,7 +58,7 @@ WHERE
 
 
 /*
-Aggregate functions, apart from COUNT(*), ignore NULLS
+Aggregate functions,apart from COUNT(*),ignore NULLS
 We can use this to find the number of non NULL rows
 */
 
@@ -77,21 +77,21 @@ ISNULL() returns a replacement string if a value is NULL
 */
 SELECT 
 	m.MessageId
-	, m.Colour
-	, ISNULL(m.Colour, 'No Colour') AS FullColour
+	,m.Colour
+	,ISNULL(m.Colour,'No Colour') AS FullColour
 FROM
 	Message m;
 
 /*
 COALESCE() returns the first non NULL value in the list of arguments
 More useful where these are several columns each with a different version of same quantity: 
-e.g. COALSECE(Forecast5, Forecast4, Forecast3, Forecast2, Forecast1, 0)
+e.g. COALSECE(Forecast5,Forecast4,Forecast3,Forecast2,Forecast1,0)
 */
 SELECT 
 	m.MessageId
-	, m.Colour
-	, m.Style
-	, COALESCE(m.Colour, m.Style,  'Nothing to see here') AS CombineCoalesce
+	,m.Colour
+	,m.Style
+	,COALESCE(m.Colour,m.Style, 'Nothing to see here') AS CombineCoalesce
 FROM
 	Message m;
 
@@ -104,21 +104,21 @@ Advanced:  count the number of rows with a NON NULL value for a column in 2 step
 -- Step 1
 SELECT 
 	m.MessageId
-	, m.Colour
-	, CASE WHEN Colour IS NOT NULL THEN 1 ELSE 0 END IsColourPresent 
+	,m.Colour
+	,CASE WHEN Colour IS NOT NULL THEN 1 ELSE 0 END IsColourPresent 
 FROM Message m;
 
 -- Summarise for whole table
 SELECT 
 	COUNT(*) NumMessages
-	, SUM(CASE WHEN Colour IS NOT NULL THEN 1 ELSE 0 END) NumMessagesWithColourPresent 
+	,SUM(CASE WHEN Colour IS NOT NULL THEN 1 ELSE 0 END) NumMessagesWithColourPresent 
 FROM Message m;
 
 -- Summarise For each region
 SELECT 
 	m.Region
-	, COUNT(*) NumMessages
-	, SUM(CASE WHEN Colour IS NOT NULL THEN 1 ELSE 0 END) NumMessagesWithColourPresent 
+	,COUNT(*) NumMessages
+	,SUM(CASE WHEN Colour IS NOT NULL THEN 1 ELSE 0 END) NumMessagesWithColourPresent 
 FROM Message m
 GROUP BY m.Region;
 

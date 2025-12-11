@@ -4,7 +4,7 @@ Subqueries Lesson 1 - Self-Contained Subqueries
 
 A self-contained subquery is independent of the outer query
 It can be executed stand-alone.
-It is executed once and the result is used by the outer query.  (As a result, it is generally more efficient than a correlated subquery
+It is executed once and the result is used by the outer query.  (As a result,it is generally more efficient than a correlated subquery
 */
 
 /*
@@ -13,8 +13,8 @@ List the patient stays with the highest tariff
 */
 SELECT
 	ps.PatientId
-	, ps.Hospital
-	, ps.Tariff
+	,ps.Hospital
+	,ps.Tariff
 FROM
 	PatientStay ps
 WHERE
@@ -30,9 +30,9 @@ Note: You can list patients in all wards apart from surgical wards by using NOT 
 
 SELECT
 	ps.PatientId
-	, ps.Hospital
-	, ps.Ward
-	, ps.Tariff
+	,ps.Hospital
+	,ps.Ward
+	,ps.Tariff
 FROM
 	PatientStay ps
 WHERE
@@ -46,8 +46,8 @@ WHERE
  */
 SELECT
 	h.Hospital
-	, h.[Type]
-	, h.Reach
+	,h.HospitalType
+	,h.Reach
 FROM
 	DimHospital h 
 WHERE h.Hospital IN (
@@ -60,7 +60,7 @@ FROM
 	PatientStay ps
 WHERE
 	ps.Hospital IN (
-	SELECT h.Hospital FROM DimHospital h WHERE h.[Type] = 'Teaching'
+	SELECT h.Hospital FROM DimHospital h WHERE h.HospitalType = 'Teaching'
 	);
 /*
 This  subquery returns a table so use in the FROM ...
@@ -69,13 +69,13 @@ Calculate budget hospital tariffs as 10% more than actuals
 
 SELECT
 	hosp.Hospital
-	, hosp.HospitalTariff
-	, hosp.HospitalTariff * 1.1 AS BudgetTariff
+	,hosp.HospitalTariff
+	,hosp.HospitalTariff * 1.1 AS BudgetTariff
 FROM
 	(
 	SELECT
 		ps.Hospital
-		, SUM(ps.Tariff) AS HospitalTariff
+		,SUM(ps.Tariff) AS HospitalTariff
 	FROM
 		PatientStay ps
 	GROUP BY
@@ -94,7 +94,7 @@ FROM
 	SELECT
 		TOP 10
          ps.PatientId
-		, ps.Tariff
+		,ps.Tariff
 	FROM
 		PatientStay ps
 	ORDER BY

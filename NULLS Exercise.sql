@@ -7,7 +7,7 @@
 */
 SELECT
 	ps.PatientId
-	, ps.Ethnicity
+	,ps.Ethnicity
 FROM
 	PatientStay ps ;
 
@@ -17,8 +17,8 @@ FROM
 */
 SELECT
 	ps.PatientId
-	, ps.Ethnicity
-	, '???' AS EthnicityIfNull
+	,ps.Ethnicity
+	,'???' AS EthnicityIfNull
 FROM
 	PatientStay ps ;
 
@@ -28,8 +28,8 @@ FROM
 */
 SELECT
 	ps.PatientId
-	, ps.Ethnicity
-	, '???' AS EthnicityCoalesce
+	,ps.Ethnicity
+	,'???' AS EthnicityCoalesce
 FROM
 	PatientStay ps ;
 
