@@ -54,7 +54,7 @@ String functions
 
 /*
 CONCAT - appends several  columns / values together.  
-Implicity converts these to string saving us the trouble
+ImplicitLy converts these to string saving us the trouble
 
 Note that the + operator can concatenate strings but all datatypes must be strings 
 */
@@ -95,7 +95,7 @@ FROM
 /*
 Other functions
 COALESCE(item1, item2, ...) - returns the first non-null value in a list
-ISNULL(expression, replacement) - Return the replacenet value value if expression is NULL. Otherwise returns expression 
+ISNULL(expression, replacement) - returns the replacement value if expression is NULL. Otherwise returns expression 
 */
 
 -- Create a small temporary table with a NULL value to demo these functions
