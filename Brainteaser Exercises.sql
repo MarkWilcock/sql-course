@@ -4,7 +4,7 @@ A set of brainteaser exercise to consolidate SQL lessons
 */
 
 /*
-This exercise analyses the data quality of BadMessage table,that  contains list of messages. 
+This exercise analyses the data quality of BadMessage table, that contains list of messages. 
 */
 SELECT
 	bm.MessageId
@@ -19,7 +19,7 @@ ORDER BY
 
 /*
 We have been told that the MessageId column has unique and contiguous values  
-i.e. there are no dupicates and no missing values (so no gaps in the sequence of MessageId values).
+i.e. there are no duplicates and no missing values (so no gaps in the sequence of MessageId values).
 
 There are three tasks:
 1. Check for duplicates in the MessageId column
