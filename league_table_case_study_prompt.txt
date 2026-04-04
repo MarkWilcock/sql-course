@@ -1,0 +1,46 @@
+file league_table_case_study_prompt.txt
+
+Prompt for AI tool to solve the league table SQL challenge
+
+Act as a SQL expert. Write the SQL to build the league table from the match record.
+
+The table FootballMatch has a row for every match with columns:
+
+Date:	Match Date (dd/mm/yy)
+HomeTeam: Home Team
+AwayTeam: Away Team
+FTHG:	Full Time Home Team Goals
+FTAG:	Full Time Away Team Goals
+FTR:	Full Time Result (H=Home Win, D=Draw, A=Away Win)
+
+for example, the SQL query
+
+SELECT
+    m.HomeTeam
+    ,m.AwayTeam
+    ,m.FTHG
+    ,m.FTAG 
+    ,FTR
+FROM
+    FootballMatch m;
+
+return rows like these
+
+| Man United | Fulham | 1 | 0 | H |
+| Ipswich | Liverpool | 0 | 2 | A |
+| Arsenal | Wolves | 2 | 0 | H |
+| Everton | Brighton | 0 | 3 | A |
+| Newcastle | Southampton | 1 | 0 | H |
+
+The league table has these columns:
+
+Position -the ranking of the team by Points, then if any ties, by GD
+Team, the name of the team. Note that some names differ slightly between the source match record data and the BBC and Premier League tables - the supplied Team table translates between these
+Played - the number of matches played by each team
+Won - the number of matches won
+Drawn - the number of matches drawn
+Lost - the number of matches lost
+GF - a common abbreviation of Goals For, the number of goals scored by each team
+GA - a common abbreviation of Goals Against, the number of goals conceded by each team
+GD - the Goal Difference, equal to GF - GA
+Points - teams get 3 points for a win, 1 for a draw, and 0 points for a loss

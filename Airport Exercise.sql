@@ -46,6 +46,7 @@ FROM
 	airports a;
 
 -- How many airports are in the airports table?
+SELECT COUNT(*) AS airport_count
 
 -- How many frequencies are in the airport_frequencies table?
 
@@ -73,7 +74,20 @@ You can do this is several ways: LEFT JOIN,NOT IN,NOT EXISTS,...
   (c) that have a latitude between 49 and 54 degrees
 3. Order from the most northern airports to most southern airports
 */
-
+SELECT
+	a.ident
+	,a.iata_code
+	,a.name
+	,a.latitude_deg
+	,a.longitude_deg
+FROM
+	airports a
+WHERE
+	a.[type] = 'large_airport'
+	AND a.iso_country IN ('GB', 'FR')
+	AND a.latitude_deg BETWEEN 49 AND 54
+ORDER BY
+	a.latitude_deg DESC;
 
 /*
 List the iso_country of the 5 countries with the most airports 

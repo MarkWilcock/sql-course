@@ -1,0 +1,17 @@
+to do
+
+advanced course
+
+generally - layout to use fewer lines (need to fix format on save editor that puts WITH cte AS on 3 lines)
+
+window functions
+- CTE usegae toward the end simplify
+- use example from 2026-03-20 cte lesson to show 2 stage process (perhaps as separate window-functions-advanced-lesson.sql file)
+
+Tally tables
+- split into tally-use-case-lesson.sql and tally-build.sql
+- check tally use cases; more than date table
+
+
+Covid cases
+- create #UK_Cases table up front
