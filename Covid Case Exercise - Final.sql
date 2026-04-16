@@ -153,34 +153,30 @@ Find the three days with the highest number of cases in each country (using a CR
 Create exactly the same resultset as the previous approach
 */
 SELECT
-	DISTINCT
     cc.Country
-	, m.DateRecorded
-	, m.DailyCases
-	, m.Ranking
+    ,m.DateRecorded
+    ,m.DailyCases
+    ,m.Ranking
 FROM
-	CovidCase cc
+    (SELECT DISTINCT z.Country FROM CovidCase z) cc
     CROSS APPLY
-(
-	SELECT
-		TOP 3
-        z.Country
-		, z.DateRecorded
-		, z.DailyCases
-		, RANK() OVER (PARTITION BY z.country ORDER BY DailyCases DESC) AS Ranking
-	FROM
-		CovidCase z
-	WHERE
-		z.Country = cc.Country
-	ORDER BY
-		z.DailyCases DESC
-		-- FETCH FIRST 3 ROWS ONLY -- Oracle
-
-) m
+    (
+        SELECT
+            TOP 3
+            z.DateRecorded
+            ,z.DailyCases
+            ,RANK() OVER (ORDER BY z.DailyCases DESC) AS Ranking
+        FROM
+            CovidCase z
+        WHERE
+            z.Country = cc.Country
+        ORDER BY
+            z.DailyCases DESC
+            -- FETCH FIRST 3 ROWS ONLY -- Oracle
+    ) m
 ORDER BY
-	cc.Country
-	,
-         m.DailyCases DESC;
+    cc.Country
+    ,m.DailyCases DESC;
 
 /*
 Calculate the seven day moving average of cases by country
