@@ -1,7 +1,28 @@
-Write a SQL script to 
-* create a temporary table named #PatientStay  with the same structure as the existing PatientStay table in the current connection's database
-* insert data from the existing PatientStay table into the #PatientStay temporary table
+Follow the instructions below for the permanent table DimHospital.  It is available in teh current connection.
 
+Write a SQL script to 
+* create a temporary table  with the same structure as an existing table in the current connection's database
+* insert data from the existing table into the temporary table
+
+Name the temporary table based on the permanent table buts starting with a #.
+
+The pattern of the generated SQL script should be:
+
+DROP TABLE IF EXISTS <temp table>
+CREATE TABLE <temp table> (...);
+then for each row of data in the existing permanent table, an INSERT statement 
+INSERT INTO <temp table> (...) VALUES (...);
+
+This is so the script can be run in an environment that does not have access to the existing table, for example, a completely separate database
+
+Run the SQL statement
+select * from <permanent table>;
+to get the data to be used in the INSERT INTO statements
+
+If any of this is not possible, for example, if you cannot run the select statement
+then please let me know and abort the task.
+
+/*
 The structure of PatientStay table is as follows:
 	[PatientId] [int] NOT NULL PRIMARY KEY,
 	[AdmittedDate] [date] NOT NULL,
@@ -10,23 +31,4 @@ The structure of PatientStay table is as follows:
 	[Tariff] [float] NOT NULL,
 	[Ethnicity] [varchar](50) NULL,
 	[DischargeDate] [date] NULL
-
-The pattern should be:
-DROP TABLE IF EXISTS #PatientStay;
-
-CREATE TABLE #PatientStay (...);
-
-then for each row of data in the existing PatientStay table, an INSERT statement 
-
-INSERT INTO #PatientStay (...) VALUES (...);
-INSERT INTO #PatientStay (...) VALUES (...);
-
-This is so the script can be run in an environment that does not have access
-to the existing PatientStay table, for example, a completely separate database
-
-Run the SQL statement
-select * from PatientStay;
-to get the data to be used in the INSERT INTO statements
-
-If any of this is not possible, for example, if you cannot run the select statement
-then please let me know and abort the task.
+*/
