@@ -1,0 +1,32 @@
+Write a SQL script to 
+* create a temporary table named #PatientStay  with the same structure as the existing PatientStay table in the current connection's database
+* insert data from the existing PatientStay table into the #PatientStay temporary table
+
+The structure of PatientStay table is as follows:
+	[PatientId] [int] NOT NULL PRIMARY KEY,
+	[AdmittedDate] [date] NOT NULL,
+	[Hospital] [varchar](50) NOT NULL,
+	[Ward] [varchar](50) NOT NULL,
+	[Tariff] [float] NOT NULL,
+	[Ethnicity] [varchar](50) NULL,
+	[DischargeDate] [date] NULL
+
+The pattern should be:
+DROP TABLE IF EXISTS #PatientStay;
+
+CREATE TABLE #PatientStay (...);
+
+then for each row of data in the existing PatientStay table, an INSERT statement 
+
+INSERT INTO #PatientStay (...) VALUES (...);
+INSERT INTO #PatientStay (...) VALUES (...);
+
+This is so the script can be run in an environment that does not have access
+to the existing PatientStay table, for example, a completely separate database
+
+Run the SQL statement
+select * from PatientStay;
+to get the data to be used in the INSERT INTO statements
+
+If any of this is not possible, for example, if you cannot run the select statement
+then please let me know and abort the task.
