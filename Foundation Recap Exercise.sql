@@ -1,36 +1,34 @@
 /*
 Foundation Recap Exercise
 
-Use the table PatientStay.  
-This lists 44 patients admitted to London hospitals over 5 days between Feb 26th and March 2nd 2024
+Use the table PatientStay.
+This table lists 44 patients admitted to London hospitals over 5 days, from 26 February to 2 March 2024.
 */
 
 SELECT
 	*
 FROM
-	PatientStay ps ;
+	PatientStay ps;
 
 /*
-1. Filter the list the patients to show only those  -
-a) in the Oxleas hospital,
-b) and also in the PRUH hospital,
-c) admitted in February 2024
-d) only the surgical wards (i.e. wards ending with the word Surgery)
+1. Filter the list of patients to show only those who:
+a) were admitted to the Oxleas or PRUH hospital
+b) were admitted in February 2024
+c) were in a surgical ward (i.e. wards with names ending in the word Surgery)
 
-
-2. Show the PatientId, AdmittedDate, DischargeDate, Hospital and Ward columns only, not all the columns.
-3. Order results by AdmittedDate (latest first) then PatientID column (high to low)
-4. Add a new column LengthOfStay which calculates the number of days that the patient stayed in hospital, inclusive of both admitted and discharge date.
+2. Show only these columns: PatientId, AdmittedDate, DischargeDate, Hospital, and Ward.
+3. Order the results by AdmittedDate (latest first), then by PatientId (high to low).
+4. Add a calculated column called LengthOfStay that shows the number of days the patient stayed in hospital.
 */
 
 -- Write the SQL statement here
 
 
 /*
-5. How many patients has each hospital admitted? 
-6. How much is the total tariff for each hospital?
-7. List only those hospitals that have admitted over 10 patients
-8. Order by the hospital with most admissions first
+5. How many patients have been admitted to each hospital?
+6. What is the total tariff for each hospital?
+7. List only those hospitals that have admitted more than 10 patients.
+8. Order the results by the hospital with the most admissions first.
 */
 
 -- Write the SQL statement here
