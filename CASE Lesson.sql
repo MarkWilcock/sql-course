@@ -1,9 +1,10 @@
 /*
 SQL Course - CASE Lesson
-We can add a new calculated column and use CASE to return different values depending on the data.
+We can add a new calculated column and use CASE to switch between options.
 */
 
 /*
+Simple CASE form: 
 Match an exact value: return a different label depending on which hospital the patient is in.
 */
 
@@ -11,17 +12,19 @@ SELECT
     ps.PatientId
     ,ps.Hospital
     ,CASE ps.Hospital
-        WHEN 'PRUH' THEN 'Princess Royal University Hospital'
-        WHEN 'Oxleas' THEN 'Oxleas NHS Foundation Trust'
-        ELSE 'Other Hospitals'
+        WHEN 'PRUH' THEN 'Trust A'
+        WHEN 'Oxleas' THEN 'Trust A'
+        ELSE 'Trust B'
     END AS HospitalGroup
     ,ps.Ward
 FROM
     dbo.PatientStay ps
 ORDER BY
-    HospitalGroup;
+    ps.PatientId;
 
 /*
+
+Serached CASE form
 Check a condition: return a different label depending on which ward the patient is in.
 */
 
@@ -31,7 +34,7 @@ SELECT
     ,ps.Ward
     ,CASE
         WHEN ps.Ward LIKE '%Surgery' THEN 'Surgical'
-        WHEN ps.Ward IN ('Accident', 'Emergency', 'Ophthalmology') THEN 'A&E'
+        WHEN ps.Ward IN ('Accident', 'Emergency') THEN 'A&E'
         ELSE 'General'
     END AS WardType
 FROM

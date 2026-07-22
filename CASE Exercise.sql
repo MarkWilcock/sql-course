@@ -18,7 +18,7 @@ SELECT
 FROM
     dbo.PatientStay ps
 ORDER BY
-    HospitalLocation;
+    ps.PatientId;
 
 /*
 Create a new column WardType
@@ -29,11 +29,12 @@ Use the searched CASE form
 SELECT
     ps.PatientId
     ,ps.Hospital
+    ,ps.Ward
     ,'???' AS WardType
 FROM
     dbo.PatientStay ps
 ORDER BY
-    WardType;
+    ps.PatientId;
 
 /*
 Create a new column PatientTariffGroup
@@ -52,6 +53,4 @@ SELECT
 FROM
     dbo.PatientStay ps
 ORDER BY
-    PatientTariffGroup
-    ,ps.Tariff
-    ,ps.PatientId;
+    ps.PatientId;
