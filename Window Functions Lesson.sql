@@ -1,7 +1,7 @@
 /*
 Explaining Window Functions 
 
-Window functions are very useful for analysis.  Examples include rolling totals,moving averages and ranking per category.
+Window functions are very useful for analysis.  Examples include rolling totals, moving averages and ranking per category.
 A window function is a computation that returns a single value applied to a set of rows defined by a window specification.
 Each column can independently calculate a window function.
 Each row has its own window
@@ -25,14 +25,14 @@ FROM
  * Write a SQL query to show the number of patients admitted each day
 The resultset should have two columns:
 * AdmittedDate
-*NumberOfPatients
+* NumberOfPatients
 It should be sorted by AdmittedDate (earliest first)
  */
 
 
 /*
 We will use the DATENAME function later so let's have a look at it now.
-How many patients were admittted each month?
+How many patients were admitted each month?
 */
 
 SELECT
@@ -105,7 +105,7 @@ ORDER BY
 
 /*
 ROW_NUMBER() is a special function used with Window functions to index rows in a window
-It must have a ORDER BY since SQL must know  how to sort rows in each window
+It must have an ORDER BY since SQL must know how to sort rows in each window
 */
 SELECT
 	ps.PatientId
@@ -125,7 +125,7 @@ ORDER BY
 /*
 Compare ROW_NUMBER(),RANK() and DENSE_RANK() where there are ties
 ROW_NUMBER() will always create a monotonically  increasing sequence 1,2,3,... and arbitrarily choose one tie row over another
-RANK() will give all tie rows the same value and the rank of the next row will n higher if there are n tie rows e.g. 1,1,3,...
+RANK() will give all tie rows the same value and the rank of the next row will be n higher if there are n tie rows e.g. 1,1,3,...
 DENSE_RANK() will give all tie rows the same value and the rank of the next row will one higher e.g. 1,1,2,...
 NTILE(10) splits into deciles
 */
@@ -233,10 +233,10 @@ ORDER BY
 
 /*
 Window functions use case: Ranking & Top N per category
-Find the top 2 most expensive patients in each hospital.  
+Find the top 2 most expensive patients in each hospital.
 In the case of ties return the patient with the lowest PatientId.
 The CTE is necessary here since we cannot put a Window function into a WHERE clause
-**/
+*/
 
 WITH RankedPatient (PatientId,Hospital,Tariff,PatientRank)
 AS (
