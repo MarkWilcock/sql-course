@@ -7,7 +7,7 @@ SQL Course - CASE Exercise
 
 /*
 Create a new column HospitalLocation
-Kings College is Urban, other hospitals are Rural
+Kings College and Kingston hospitals are 'Inner', other hospitals are 'Outer'
 Use the simple CASE form
 */
 
@@ -31,6 +31,23 @@ SELECT
     ,ps.Hospital
     ,ps.Ward
     ,'???' AS WardType
+FROM
+    dbo.PatientStay ps
+ORDER BY
+    ps.PatientId;
+
+/*
+Create a new column DetailsKnown
+If the patient's Ethnicity is provided, this has the value 'Yes'.
+If the patient's Ethnicity is not recorded, this has the value 'No'.
+*/
+
+SELECT
+    ps.PatientId
+    ,ps.Hospital
+    ,ps.Ward
+    ,ps.Ethnicity
+    ,'???' AS DetailsKnown
 FROM
     dbo.PatientStay ps
 ORDER BY

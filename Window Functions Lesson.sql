@@ -166,8 +166,7 @@ ORDER BY
  * Running Total,resetting each month,alternative and simpler statement using WITH 
  */
 
-WITH cte
-AS (
+WITH cte AS (
 SELECT
 	ps.AdmittedDate
 	,DATENAME(MONTH,ps.AdmittedDate) AS MonthAdmitted
@@ -286,7 +285,6 @@ SELECT
 	,cte.Tariff - cte.PreviousDayTariff AS ChangeOnPreviousDate
 FROM
 	cte;
-
 
 
 /*

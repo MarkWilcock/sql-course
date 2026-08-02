@@ -8,8 +8,7 @@ I have renamed some column names from the original dataset to make them more cle
 */
 
 -- Let's take a quick look at a few rows in the table
-SELECT
-    TOP 20 *
+SELECT TOP 20 *
 FROM CovidCase cc
 ORDER BY cc.DateRecorded DESC;
 
@@ -31,26 +30,35 @@ ORDER BY
 	, cc.DateRecorded;
 
 /*
+To work on the UK as a whole (not by country) 
+we must first group by date (to aggregate over the 4 countries) to get the UK total daily cases
+Since we have several queries at UK  level, we will use a temp table to do this once.
+*/
+
+DROP TABLE IF EXISTS #uk_cases;
+
+SELECT
+	cc.DateRecorded
+	, SUM(cc.DailyCases)
+INTO #uk_cases
+FROM
+	CovidCase cc
+GROUP BY
+	cc.DateRecorded;
+
+
+/*
 Calculate the cumulative number of cases in the UK as a whole
 Create a resultset with three columns: DateRecorded, DailyCases and CumulativeCases
 Note: we must first group by date (to aggregate over the 4 countries) to get the UK total daily cases
 */
 
-WITH  uk (DateRecorded, DailyCases) AS (
-SELECT
-	cc.DateRecorded
-	, SUM(cc.DailyCases)
-FROM
-	CovidCase cc
-GROUP BY
-	cc.DateRecorded
-    )
 SELECT
 	uk.DateRecorded
 	, uk.DailyCases
 	, 'your answer' CumulativeCases
 FROM
-	uk
+	#uk_cases uk
 ORDER BY
 	uk.DateRecorded;
 
@@ -59,24 +67,12 @@ Find the three days with the highest number of cases in the UK
 Create a resultset with three columns: DateRecorded, DailyCases and Ranking, and with three rows
 */
 
-WITH
-    uk (DateRecorded, DailyCases)
-    AS
-    (
 SELECT
-	cc.DateRecorded
-	, SUM(cc.DailyCases)
-FROM
-	CovidCase cc
-GROUP BY
-	cc.DateRecorded
-    )
-SELECT 
 	uk.DateRecorded
 	, uk.DailyCases
 	, 'your answer' AS Ranking
 FROM
-	uk;
+	#uk_cases uk;
 
 /*
 Find the three days with the highest number of cases in each country 
@@ -84,17 +80,13 @@ Create a resultset with
 * four columns: Country, DateRecorded, DailyCases and Ranking 
 * 12 rows (4 rows for each country with Ranking of 1,2,and 3
 */
-WITH
-    cte
-    AS
-    (
+WITH  cte AS  (
 SELECT
 	cc.Country
 	, cc.DateRecorded
 	, cc.DailyCases
 FROM
-	CovidCase cc
-    )
+	CovidCase cc)
 SELECT
 	*
 FROM
@@ -105,15 +97,15 @@ Advanced Section
 */
 
 /*
-Find the three days with the highest number of cases in each country (using a CROSS APPLY approach)
-Create exactly the same resultset as the previous approach
+Find the three days with the highest number of cases in each country (using a CROSS APPLY approach).
+Create exactly the same resultset as the previous approach.
 */
 SELECT
 	DISTINCT
     cc.Country
-	, m.DateRecorded
-	, m.DailyCases
-	, m.Ranking
+	,m.DateRecorded
+	,m.DailyCases
+	,m.Ranking
 FROM
 	CovidCase cc
     CROSS APPLY
@@ -121,34 +113,30 @@ FROM
 	SELECT
 		TOP 3
         z.Country
-		, z.DateRecorded
-		, z.DailyCases
-		, RANK() OVER (PARTITION BY z.country ORDER BY DailyCases DESC) AS Ranking
+		,z.DateRecorded
+		,z.DailyCases
+		,RANK() OVER (PARTITION BY z.country ORDER BY z.DailyCases DESC) AS Ranking
 	FROM
 		CovidCase z
 	WHERE
 		z.Country = cc.Country
 	ORDER BY
 		z.DailyCases DESC
-		-- FETCH FIRST 3 ROWS ONLY -- Oracle
-
 ) m
 ORDER BY
 	cc.Country
-	,
-         m.DailyCases DESC;
+	,m.DailyCases DESC;
 
 /*
-Calculate the seven day moving average of cases by country
-Create a resultset with four columns: Country, DateRecorded, DailyCases and CumulativeCases
+Advanced example: Calculate the seven day moving average of cases by country
 */
 SELECT
 	cc.DateRecorded
-	, cc.Country
-	, cc.DailyCases
-	, AVG(cc.DailyCases) OVER (PARTITION BY cc.Country ORDER BY cc.DateRecorded ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) SevenDayMovingAverageCases
+	,cc.Country
+	,cc.DailyCases
+	,AVG(cc.DailyCases) OVER (PARTITION BY cc.Country ORDER BY cc.DateRecorded ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) SevenDayMovingAverageCases
 FROM
 	CovidCase cc
 ORDER BY
 	cc.Country
-	, cc.DateRecorded;
+	,cc.DateRecorded;
