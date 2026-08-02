@@ -4,9 +4,9 @@ We can add a new calculated column and use CASE to switch between options.
 */
 
 /*
-The simple CASE form matches an exact value
-In this case we want to create a column that groups hospitals
-There is a final ELSE clause as a catch-all, for any hpspital that does not meet any of the WHEN values.
+The simple CASE form matches an exact value.
+In this case we want to create a column that groups hospitals.
+There is a final ELSE clause as a catch-all, for any hospital that does not meet any of the WHEN values.
 */
 
 SELECT
