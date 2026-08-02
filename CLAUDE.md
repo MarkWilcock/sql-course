@@ -15,7 +15,7 @@ All SQL is written for **Microsoft SQL Server (T-SQL)**. Use T-SQL syntax for da
 - `[Topic] Lesson.sql` — teaching material with explanations and examples
 - `[Topic] Exercise.sql` — exercises for students to complete (some queries are intentionally incomplete)
 - `_final/[Topic] Exercise - Final.sql` — completed answer versions of the exercises. Ignore these files unless specifically requested.
-- `setup/` — scripts to create temporary tables so lessons can run without access to a permanent database
+- `setup/` — scripts to create temporary tables so lessons can run without access to a permanent database. Ignore these files unless specifically requested.
 
 ## Datasets
 
