@@ -48,7 +48,7 @@ ORDER BY
 /*
 Count rows where a condition is true using SUM with CASE.
 Each row scores 1 if the condition is true, 0 if not — SUM then adds those scores up.
-Starting with 100.0 (not 100) ensures the division gives a decimal result rather than a whole number.
+Note the calculation uses 100.0 (not 100) to ensure the division gives a decimal result rather than a whole number.
 */
 
 -- The row-by-row query uses CASE  to create a column with a value of 1 if the patient is in a surgical ward, 0 otherwise.
@@ -63,7 +63,7 @@ ORDER BY
     ps.PatientID;
 
 -- This query groups by hospital and sums those 0 or 1 values in the calculated column 
--- This as the effect of counting patients in each hospital that meet the CASE ... THEN 1  condition
+-- This has the effect of counting patients in each hospital that meet the CASE ... THEN 1  condition
 
 SELECT
     ps.Hospital
