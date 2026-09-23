@@ -23,9 +23,15 @@ WHERE
    );
 
 /*
-List the patient stays in Surgical wards.  (These wards end with the word 'Surgery'.)
-This  subquery returns a one column list to use in the WHERE <column> IN (...)
-Note: You can list patients in all wards apart from surgical wards by using NOT IN
+This subquery returns a one column list to use in the WHERE <column> IN (...)
+List every patient stay in any ward that has had at least one very expensive stay (a tariff over 9).
+Notice that the result includes the cheaper stays in those wards too.
+
+We could not get this result with a simple WHERE ps.Tariff > 9 on its own.
+
+First run the subquery by itself to see the list of wards it returns.
+
+Note: You can list the stays in all the other wards by using NOT IN
 */
 
 SELECT
@@ -37,8 +43,12 @@ FROM
 	PatientStay ps
 WHERE
 	ps.Ward IN (
-	SELECT DISTINCT Ward FROM dbo.PatientStay WHERE Ward LIKE '%Surgery' 
-	);
+	SELECT DISTINCT ps2.Ward FROM PatientStay ps2 WHERE ps2.Tariff > 9
+	)
+ORDER BY
+	ps.Ward
+	,PS.Hospital
+	,ps.Tariff DESC;
 
 
 /*
