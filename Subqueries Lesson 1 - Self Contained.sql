@@ -52,17 +52,9 @@ ORDER BY
 
 
 /*
- * This subqueries are based on a different table to the outer query
+This subquery is based on a different table to the outer query.
+How else could we write this SQL statement to get the same result?
  */
-SELECT
-	h.Hospital
-	,h.HospitalType
-	,h.Reach
-FROM
-	DimHospital h 
-WHERE h.Hospital IN (
-	SELECT DISTINCT ps.Hospital FROM PatientStay ps WHERE ps.Ward = 'Ophthalmology' AND ps.AdmittedDate = '2024-02-26'
-	);
 
 SELECT
 	*
@@ -72,6 +64,7 @@ WHERE
 	ps.Hospital IN (
 	SELECT h.Hospital FROM DimHospital h WHERE h.HospitalType = 'Teaching'
 	);
+
 /*
 This  subquery returns a table so use in the FROM ...
 Calculate budget hospital tariffs as 10% more than actuals
@@ -93,8 +86,7 @@ FROM
 
 /*
 This subquery returns a table so use in the FROM ...
-Calculate the total tariff of the 10 most expensive patients 
-i.e. those with the highest tariff 
+Calculate the total tariff of the 10 most expensive patients  i.e. those with the highest tariff 
 (Ignore the possible complication that there may be some ties.)
 */
 SELECT
