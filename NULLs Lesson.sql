@@ -109,23 +109,26 @@ FROM
     Message m;
 
 /*
-Advanced: count the number of rows with a non-NULL value for a column in two steps.
-(1) Create a calculated column: use CASE to return 1 or 0 for each row depending on whether the column value is NULL.
-(2) Sum that column — the total is the count of rows with a non-NULL value.
+Advanced: count the number of rows with a missing value for two columns in two steps.
+(1) Create a calculated column: use CASE to return 1 or 0 for each row depending on whether both Colour and Style column values are NULL.
+(2) Sum that column — the total is the count of rows with a missing value for both columns.
+
+If we wanted to count rows where either Colour or Style is not NULL, how would we change teh statement?
 */
 
 -- Step 1
 SELECT
     m.MessageId
     ,m.Colour
-    ,CASE WHEN m.Colour IS NOT NULL THEN 1 ELSE 0 END AS IsColourPresent
+    ,m.Style
+    ,CASE WHEN m.Colour IS NULL AND m.Style IS NULL THEN 1 ELSE 0 END AS IsColourAndStyleMissing
 FROM
     Message m;
 
 -- Summarise for the whole table
 SELECT
     COUNT(*) AS NumMessages
-    ,SUM(CASE WHEN m.Colour IS NOT NULL THEN 1 ELSE 0 END) AS NumMessagesWithColour
+    ,SUM(CASE WHEN m.Colour IS NULL AND m.Style IS NULL THEN 1 ELSE 0 END) AS NumMessagesWithColourAndStyleMissing
 FROM
     Message m;
 
@@ -133,7 +136,7 @@ FROM
 SELECT
     m.Region
     ,COUNT(*) AS NumMessages
-    ,SUM(CASE WHEN m.Colour IS NOT NULL THEN 1 ELSE 0 END) AS NumMessagesWithColour
+    ,SUM(CASE WHEN m.Colour IS NULL AND m.Style IS NULL THEN 1 ELSE 0 END) AS NumMessagesWithColourAndStyleMissing
 FROM
     Message m
 GROUP BY
